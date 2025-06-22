@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NAZZ CELL</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #d7e1ec, #ffffff);
+      padding: 20px;
+      margin: 0;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      text-align: center;
+      color: #007bff;
+      font-size: 36px;
+      margin-bottom: 30px;
+      animation: slideIn 0.6s ease forwards;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .menu {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .menu button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 50px;
+      background-color: #007bff;
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .menu button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    h3 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #444;
+    }
+    select, input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      font-size: 15px;
+      background-color: #f9f9f9;
+    }
+    button.submit {
+      background-color: #25D366;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 12px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    button.submit:hover {
+      background-color: #1da851;
+      transform: scale(1.05);
+    }
+    .note {
+      font-size: 13px;
+      color: #666;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .back-button {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .back-button button {
+      background: #f44336;
+      color: white;
+      padding: 10px 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .back-button button:hover {
+      background: #d32f2f;
+      transform: scale(1.05);
+    }
+    .menu button i {
+      margin-right: 8px;
+    }
+  .logo-fixed {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  height: 40px;
+  z-index: 9999;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+}
+  .logo-fixed {
+  height: 40px;
+  top: 8px;
+  left: 8px;
+}
+
+#loader {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+    
+  </style>
+</head>
+<body>
+  <img src="https://i.imgur.com/2dTdClG.png" class="logo-fixed" alt="Logo NAZZ CELL">
+  
+ 
+  <h1><i class="fas fa-store"></i> NAZZ CELL</h1>
+  <div class="menu">
+    <button onclick="showForm('pulsaKuota')"><i class="fas fa-mobile-alt"></i> Pulsa / Paket</button>
+    <button onclick="showForm('dompetDigital')"><i class="fas fa-wallet"></i> Dompet Digital</button>
+    <button onclick="showForm('listrik')"><i class="fas fa-bolt"></i> Token Listrik</button>
+  </div>
+
+  <form id="pulsaKuota">
+    <h3>Pesan Pulsa / Paket Kuota</h3>
+    <label>Nomor HP Tujuan</label>
+    <input type="text" id="nomor" placeholder="08xxxxxxxxxx" required inputmode="numeric" pattern="\d*" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+    <label>Provider</label>
+    <select id="operator" onchange="loadProduk()">
+      <option value="">-- Pilih Provider --</option>
+      <option value="telkomsel">Telkomsel</option>
+      <option value="axis">Axis</option>
+      <option value="xl">XL</option>
+      <option value="tri">Tri</option>
+      <option value="smartfren">Smartfren</option>
+      <option value="indosat">Indosat</option>
+    </select>
+    <label>Jenis Produk</label>
+    <select id="jenis" onchange="loadProduk()">
+      <option value="">-- Pilih Jenis --</option>
+      <option value="pulsa">Pulsa Reguler</option>
+      <option value="kuota">Paket Kuota Internet</option>
+    </select>
+    <label>Produk</label>
+    <select id="produk">
+      <option value="">-- Pilih Produk --</option>
+    </select>
+    <button class="submit" type="button" onclick="submitPulsa()">Pesan via WhatsApp</button>
+    <div class="note">Anda akan diarahkan ke WhatsApp.</div>
+  </form>
+
+  <form id="dompetDigital">
+    <h3>Beli Dompet Digital</h3>
+    <label>Nomor Tujuan</label>
+    <input type="text" id="nomorDompet" placeholder="08xxxxxxxxxx" required inputmode="numeric" pattern="\d*" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+    <label>Jenis Dompet</label>
+    <select id="jenisDompet">
+      <option value="Dana">Dana</option>
+      <option value="OVO">OVO</option>
+      <option value="Gopay">Gopay</option>
+    </select>
+    <label>Nominal</label>
+    <select id="nominalDompet"></select>
+    <button class="submit" type="button" onclick="submitDompet()">Kirim via WhatsApp</button>
+    <div class="note">Anda akan diarahkan ke WhatsApp.</div>
+  </form>
+
+  <form id="listrik">
+    <h3>Beli Token Listrik</h3>
+    <label>ID Pelanggan</label>
+<input type="text" id="idPln" placeholder="12345678901" required inputmode="numeric" pattern="\d*" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+    <label>Nominal Token</label>
+    <select id="nominalListrik"></select>
+    <button class="submit" type="button" onclick="submitListrik()">Beli via WhatsApp</button>
+    <div class="note">Anda akan diarahkan ke WhatsApp.</div>
+  </form>
+
+  <div style="text-align:center; margin-top:10px;">
+    <button type="button" onclick="showForm(null)">Kembali</button>
+  </div>
+<div id="loader"></div>
+  <footer style="text-align:center; margin-top:40px; font-size:14px; color:#666;">
+  &copy; WEB BY:HANS | WA: 0858-9427-4101 | Alamat: BATUJAYA
+</footer>
+  
+   
+<script>
+  
+const WA_NUMBER = "6285894274101";
+function showForm(formId) {
+  document.getElementById("loader").style.display = "block";  // Tampilkan spinner
+  setTimeout(() => {
+    document.querySelectorAll("form").forEach(f => f.style.display = "none");
+    if (formId) document.getElementById(formId).style.display = "block";
+    document.getElementById("loader").style.display = "none";  // Sembunyikan spinner setelah selesai
+  }, 250); // Delay untuk efek loading
+}
+const produkDigital = [
+  { nominal: 5000, harga: 8000 },
+  { nominal: 10000, harga: 13000 },
+  { nominal: 15000, harga: 18000 },
+  { nominal: 20000, harga: 23000 },
+  { nominal: 25000, harga: 28000 },
+  { nominal: 30000, harga: 33000 },
+  { nominal: 35000, harga: 38000 },
+  { nominal: 40000, harga: 43000 },
+  { nominal: 45000, harga: 48000 },
+  { nominal: 50000, harga: 53000 },
+  { nominal: 55000, harga: 58000 },
+  { nominal: 65000, harga: 68000 },
+  { nominal: 70000, harga: 73000 },
+  { nominal: 75000, harga: 78000 },
+  { nominal: 80000, harga: 83000 },
+  { nominal: 85000, harga: 88000 },
+  { nominal: 90000, harga: 93000 },
+  { nominal: 95000, harga: 98000 },
+  { nominal: 100000, harga: 103000 },
+];
+const produkListrik = [
+  { nominal: 5000, harga: 10000 },
+  { nominal: 10000, harga: 15000 },
+  { nominal: 15000, harga: 20000 },
+  { nominal: 20000, harga: 24000 },
+  { nominal: 50000, harga: 54000 },
+  { nominal: 100000, harga: 104000 },
+  { nominal: 200000, harga: 205000 },
+  { nominal: 500000, harga: 505000 },
+  { nominal: 1000000, harga: 1005000 },
+];
+
+
+
+function loadDompetOptions() {
+  const select = document.getElementById("nominalDompet");
+  select.innerHTML = "";
+  produkDigital.forEach(p => {
+    const text = `Rp${p.nominal.toLocaleString()} (Bayar Rp${p.harga.toLocaleString()})`;
+    select.innerHTML += `<option value="${p.nominal}|${p.harga}">${text}</option>`;
+  });
+}
+
+function loadListrikOptions() {
+  const select = document.getElementById("nominalListrik");
+  select.innerHTML = "";
+  produkListrik.forEach(p => {
+    const text = `Rp${p.nominal.toLocaleString()} (Bayar Rp${p.harga.toLocaleString()})`;
+    select.innerHTML += `<option value="${p.nominal}|${p.harga}">${text}</option>`;
+  });
+}
+function submitPulsa() {
+    const nomor = document.getElementById("nomor").value;
+    const operator = document.getElementById("operator").value;
+    const jenis = document.getElementById("jenis").value;
+    const produk = document.getElementById("produk").value;
+
+    if (!nomor || !operator || !jenis || !produk) return alert("Isi semua kolom terlebih dahulu.");
+
+    const pesan = `Halo, saya ingin memesan:\n\nOperator: ${operator}\nJenis: ${jenis}\nProduk: ${produk}\nNomor Tujuan: ${nomor}`;
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(pesan)}`, '_blank');
+  }
+  
+function submitDompet() {
+  const nomor = document.getElementById("nomorDompet").value;
+  const jenis = document.getElementById("jenisDompet").value;
+  const [nominal, harga] = document.getElementById("nominalDompet").value.split("|");
+  if (!nomor || !jenis || !nominal || !harga) return alert("Isi semua kolom.");
+  const pesan = `Halo, saya ingin isi ${jenis}:
+Nomor: ${nomor}
+Nominal: Rp${parseInt(nominal).toLocaleString()}
+Total Bayar: Rp${parseInt(harga).toLocaleString()}`;
+  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(pesan)}`, '_blank');
+}
+
+function submitListrik() {
+  const id = document.getElementById("idPln").value;
+  const [nominal, harga] = document.getElementById("nominalListrik").value.split("|");
+  if (!id || !nominal || !harga) return alert("Isi semua kolom.");
+  const pesan = `Halo, saya ingin beli Token Listrik:
+ID Pelanggan: ${id}
+Nominal: Rp${parseInt(nominal).toLocaleString()}
+Total Bayar: Rp${parseInt(harga).toLocaleString()}`;
+  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(pesan)}`, '_blank');
+}
+window.onload = () => {
+  loadDompetOptions();
+  loadListrikOptions();
+};
+    const produkList = {
+      telkomsel: {
+        pulsa: [
+          { nama: "Pulsa Telkomsel 5.000", harga: 5000 },
+          { nama: "Pulsa Telkomsel 10.000", harga: 10000 }
+        ],
+        kuota: [
+          { nama: "Telkomsel 1GB - 30 Hari", harga: 20000 },
+          { nama: "Telkomsel 5GB - 30 Hari", harga: 50000 }
+        ]
+      },
+      axis: {
+        pulsa: [
+          { nama: "Pulsa Axis 5.000", harga: 8000 },
+          { nama: "Pulsa Axis 10.000", harga: 13000 },
+          { nama: "Pulsa Axis 15.000", harga: 18000 },
+          { nama: "Pulsa Axis 20.000", harga: 23000 },
+          { nama: "Pulsa Axis 30.000", harga: 33000 },
+          { nama: "Pulsa Axis 40.000", harga: 43000 },
+          { nama: "Pulsa Axis 50.000", harga: 53000 },
+          { nama: "Pulsa Axis 60.000", harga: 63000 },
+          { nama: "Pulsa Axis 70.000", harga: 73000 },
+          { nama: "Pulsa Axis 80.000", harga: 83000 },
+          { nama: "Pulsa Axis 90.000", harga: 93000 },
+          { nama: "Pulsa Axis 100.000", harga: 103000 },
+          { nama: "Pulsa Axis 150.000", harga: 153000 }
+        ],
+        kuota: [
+          { nama: "Axis Bronet 2GB - 30 Hari", harga: 18000 },
+          { nama: "Axis OWSEM 6GB - 30 Hari", harga: 35000 }
+        ]
+      },
+      xl: {
+        pulsa: [
+          { nama: "Pulsa XL 5.000", harga: 5000 },
+          { nama: "Pulsa XL 10.000", harga: 10000 }
+        ],
+        kuota: [
+          { nama: "XL Combo 3GB - 30 Hari", harga: 25000 },
+          { nama: "XL Xtra Combo 8GB - 30 Hari", harga: 50000 }
+        ]
+      },
+      tri: {
+        pulsa: [
+          { nama: "Pulsa Tri 5.000", harga: 5000 },
+          { nama: "Pulsa Tri 10.000", harga: 10000 }
+        ],
+        kuota: [
+          { nama: "Tri 2.5GB - 5 Hari", harga: 9000 },
+          { nama: "Tri 6GB - 30 Hari", harga: 30000 }
+        ]
+      },
+      smartfren: {
+        pulsa: [
+          { nama: "Pulsa Smartfren 5.000", harga: 8000 },
+          { nama: "Pulsa Smartfren 10.000", harga: 13000 },
+          { nama: "Pulsa Smartfren 12.000", harga: 15000 },
+          { nama: "Pulsa Smartfren 15.000", harga: 18000 },
+          { nama: "Pulsa Smartfren 20.000", harga: 23000 },
+          { nama: "Pulsa Smartfren .25000", harga: 28000 },
+          { nama: "Pulsa Smartfren 30.000", harga: 33000 },
+          { nama: "Pulsa Smartfren .35000", harga: 38000 },
+          { nama: "Pulsa Smartfren 40.000", harga: 43000 },
+          { nama: "Pulsa Smartfren 50.000", harga: 53000 },
+          { nama: "Pulsa Smartfren 55.000", harga: 58000 },
+          { nama: "Pulsa Smartfren 60.000", harga: 63000 },
+          { nama: "Pulsa Smartfren 65.000", harga: 68000 },
+          { nama: "Pulsa Smartfren 70.000", harga: 73000 },
+          { nama: "Pulsa Smartfren 75.000", harga: 78000 },
+          { nama: "Pulsa Smartfren 80.000", harga: 83000 },
+          { nama: "Pulsa Smartfren 85.000", harga: 88000 },
+          { nama: "Pulsa Smartfren 90.000", harga: 93000 },
+          { nama: "Pulsa Smartfren 95.000", harga: 98000 },
+          { nama: "Pulsa Smartfren 100.000", harga: 103000 },
+          { nama: "Pulsa Smartfren 125.000", harga: 128000 },
+          { nama: "Pulsa Smartfren 150.000", harga: 153000 }
+        ],
+        kuota: [
+          { nama: "Smartfren 2GB - 30 Hari", harga: 22000 },
+          { nama: "Smartfren Unlimited Harian", harga: 10000 }
+        ]
+      },
+      indosat: {
+        pulsa: [
+          { nama: "Pulsa Indosat 5.000", harga: 8000 },
+          { nama: "Pulsa Indosat 10.000", harga: 13000 },
+          { nama: "Pulsa Indosat 12.000", harga: 15000 },
+          { nama: "Pulsa Indosat 15.000", harga: 18000 },
+          { nama: "Pulsa Indosat 20.000", harga: 23000 },
+          { nama: "Pulsa Indosat 25.000", harga: 28000 },
+          { nama: "Pulsa Indosat 30.000", harga: 33000 },
+          { nama: "Pulsa Indosat 40.000", harga: 43000 },
+          { nama: "Pulsa Indosat 50.000", harga: 53000 },
+          { nama: "Pulsa Indosat 60.000", harga: 63000 },
+          { nama: "Pulsa Indosat 70.000", harga: 73000 },
+          { nama: "Pulsa Indosat 80.000", harga: 83000 },
+          { nama: "Pulsa Indosat 90.000", harga: 93000 },
+          { nama: "Pulsa Indosat 100.000", harga: 103000 },
+          { nama: "Pulsa Indosat 115.000", harga: 118000 },
+          { nama: "Pulsa Indosat 125.000", harga: 128000 },
+          { nama: "Pulsa Indosat 150.000", harga: 153000 }
+        ],
+        kuota: [
+          { nama: " Indosat Yellow 1GB - 1 Hari", harga: 7000 },
+          { nama: "Indosat  Yellow 1GB - 2 Hari", harga: 8000 },
+          { nama: " Indosat Yellow 1GB -  7 Hari", harga: 9000 },
+          { nama: " Freedom 7GB - 7 Hari", harga: 26000 },
+          { nama: " Freedom Spesial 30GB - 30 Hari (1GB/Hari)", harga: 48000 },
+          { nama: " Unlimited 14 Hari (1GB/Hari) -  ", harga: 48000 },
+          { nama: " Freedom Spesial 60GB - 30 Hari (2GB/Hari) ", harga: 85000 },
+          { nama: "Freedom Spesial 150 GB - 30 Hari (5GB/Hari) ", harga: 115000 },
+          { nama: " 150GB + 150GB Malam -  30 Hari", harga: 138000 },
+          { nama: "Freedom Internet 3GB - 28 Hari", harga: 23000 },
+          { nama: "Freedom Internet 4GB - 28 Hari", harga: 28000 },
+          { nama: "Feedom Internet 5.5GB - 28 Hari", harga: 33000 },
+          { nama: "Freedom Internet 7GB -  28 Hari", harga: 36000 },
+          { nama: "Freedom Internet 9GB -  28 Hari", harga: 46000 },
+          { nama: "Freedom Internet 13GB - 28 Hari", harga: 55000 },
+          { nama: "Freedom Internet 16GB -  28 Hari", harga: 63000 },
+          { nama: "Freedom Internet 20GB - 28 Hari", harga: 68000 },
+          { nama: "Freedom Internet25GB -  28 Hari", harga: 92000 },
+          { nama: "Freedom Mini 1.5GB - 1 Hari", harga: 7000 },
+          { nama: " Freedom Mini 1GB - 2 Hari", harga: 8000 },
+          { nama: "Freedom Mini 3GB - 1 Hari", harga: 9000 },
+          { nama: "Freedom Mini 1.5GB - 3 Hari", harga: 11000 },
+          { nama: "Freedom Mini 3GB - 3 Hari", harga: 14000 },
+          { nama: "Freedom Mini 2.5GB - 5 Hari", harga: 15000 },
+          { nama: "Freedom Mini 3.5GB - 5 Hari", harga: 17000 },
+          { nama: "Freedom Mini 5GB -  3 Hari", harga: 20000 },
+          { nama: "Freedom Mini 5GB - 5 Hari", harga: 20000 },
+          { nama: "Freedom Mini 7 GB - 7 Hari", harga: 25000 },
+          { nama: "Freedom Mini 15 GB - 7 Hari", harga: 31000 }
+        ]
+      }
+    };
+  
+  function loadProduk() {
+      const operator = document.getElementById("operator").value;
+      const jenis = document.getElementById("jenis").value;
+      const produkSelect = document.getElementById("produk");
+      produkSelect.innerHTML = '<option value="">-- Pilih Produk --</option>';
+
+      if (!operator || !jenis || !produkList[operator] || !produkList[operator][jenis]) return;
+
+      produkList[operator][jenis].forEach(p => {
+        const text = `${p.nama} - Rp${p.harga.toLocaleString()}`;
+        produkSelect.innerHTML += `<option value="${text}">${text}</option>`;
+      });
+    }
+  
+  </script>
+</body>
+</html>
